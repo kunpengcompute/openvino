@@ -4,13 +4,11 @@
 ![Architecture](https://img.shields.io/badge/arch-aarch64-red.svg)
 ![OS](https://img.shields.io/badge/OS-openEuler%2024.03%20LTS%20SP3-002FA7.svg)
 
-
 ## 简介
+
 鲲鹏OpenVINO代码仓是针对开源 OpenVINO 项目在鲲鹏服务器上的适配与使能。
 
-
 OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 AI 模型，被广泛应用于目标检测、人脸识别等媒体相关推理场景。
-
 
 ## 目录结构
 
@@ -36,7 +34,6 @@ OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 A
 | GCC版本 | OpenVINO版本 | 源码链接 |
 | ---- | ---- | ---- |
 | 12.3.1 | 2026.3.1 | [下载链接](https://github.com/openvinotoolkit/openvino/releases/tag/2026.3.1) |
-
 
 ## 环境部署
 
@@ -127,8 +124,6 @@ Open Model Zoo是一个开源项目，提供了丰富的预训练模型，用户
 * [FaceNet 人脸识别](examples/facenet/)：使用 `facenet-20180408-102900` 模型提取人脸特征并进行人脸比对。
 
 详细的模型准备及运行方法请参考 [examples/facenet](examples/facenet/README.md) 以及 [examples/ultra-lightweight-face-detection-rfb-320](examples/ultra-lightweight-face-detection-rfb-320/README.md)。
-
-
 
 ## 许可证
 

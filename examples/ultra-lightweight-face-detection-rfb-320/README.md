@@ -83,8 +83,6 @@ python3 test_face_detection_FRB320.py \
 | `--confidence` | `0.5`                          | 置信度阈值                              |
 | `--precision`  | `f16`                          | 推理精度提示，可选 `f16` / `f32`        |
 
-
-
 ### 示例结果
 
 以下为使用默认测试图片 `face_test.jpg` 运行本示例的检测效果。模型成功定位图像中的人脸位置，并以绿色矩形框标注，检测结果保存至 `face_result.jpg`。
@@ -102,6 +100,7 @@ python3 test_face_detection_FRB320.py \
 `benchmark_app` 是 OpenVINO 自带的性能基准测试工具，用于测量模型在指定设备上的推理性能。它通过多次执行推理并统计延迟、吞吐量等指标，帮助评估模型部署后的实际运行效率。
 
 测试运行命令如下：
+
 ```bash
 /workspace/openvino/bin/aarch64/Release/benchmark_app \
     -m /path/to/ultra-lightweight-face-detection-rfb-320.xml \
