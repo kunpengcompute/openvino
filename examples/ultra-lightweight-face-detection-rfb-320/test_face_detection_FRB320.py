@@ -20,7 +20,7 @@ parser.add_argument(
 
 parser.add_argument(
     "--image",
-    default="/workspace/open_model_zoo/ovc_test/FRB320/face_test.jpg",
+    default="/examples/ultra-lightweight-face-detection-rfb-320/face_test.jpg",
     help="输入图像路径 (默认: 内置测试图)",
 )
 

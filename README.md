@@ -96,26 +96,27 @@ output = compiled_model({0: data})
 
 Open Model Zoo是一个开源项目，提供了丰富的预训练模型，用户可通过 `omz_downloader` 工具下载模型。
 
-拉取 Open Model Zoo 代码仓：
+1. 拉取 Open Model Zoo 代码仓：
 
-```bash
-cd /workspace
+    ```bash
+    cd /workspace
 
-git clone https://github.com/openvinotoolkit/open_model_zoo.git
-```
+    git clone https://github.com/openvinotoolkit/open_model_zoo.git
+    ```
 
-安装工具：
+2. 安装工具：
 
-```bash
-cd open_model_zoo/tools/accuracy_checker/
+    ```bash
+    cd open_model_zoo/tools/accuracy_checker/
 
-python3 -m pip install -r requirements-core.in
-```
-例如，下载 `ultra-lightweight-face-detection-rfb-320` 模型：
+    python3 -m pip install -r requirements-core.in
+    ```
 
-```bash
-omz_downloader --name ultra-lightweight-face-detection-rfb-320
-```
+3. 以下载 `ultra-lightweight-face-detection-rfb-320` 模型为例：
+
+    ```bash
+    omz_downloader --name ultra-lightweight-face-detection-rfb-320
+    ```
 
 ### 示例
 
