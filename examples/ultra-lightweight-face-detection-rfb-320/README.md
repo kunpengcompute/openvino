@@ -10,7 +10,7 @@ ultra-lightweight-face-detection-rfb-320 是基于 RFB（Receptive Field Block�
 
 | Metric           | Value    |
 |------------------|----------|
-| Source framework | PyTorch* |
+| Source framework | PyTorch  |
 | GFlops           | 0.2106   |
 | MParams          | 0.3004   |
 | Input size       | 240×320  |
@@ -48,7 +48,7 @@ ultra-lightweight-face-detection-rfb-320 是基于 RFB（Receptive Field Block�
 
 ### 前置条件
 
-已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，并按 [快速入门](../../README.md) 下载模型与测试图片。
+已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，并按 [快速入门](../../README.md) 安装 `omz_downloader` 模型下载工具。
 
 下载模型：
 ```bash

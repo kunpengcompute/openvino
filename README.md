@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![Architecture](https://img.shields.io/badge/arch-aarch64-red.svg)
-![OS](https://img.shields.io/badge/OS-openEuler%2024.03%20LTS%20SP3-002FA7.svg)
+![OS](https://img.shields.io/badge/OS-openEuler%2024.03%20LTS%20SP4-002FA7.svg)
 
 ## 简介
 
@@ -28,12 +28,6 @@ OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 A
 ├── LICENSE                                          # 开源许可证
 └── README.md                                        # 项目说明文档
 ```
-
-## 版本配套说明
-
-| GCC版本 | OpenVINO版本 | 源码链接 |
-| ---- | ---- | ---- |
-| 12.3.1 | 2026.3.1 | [下载链接](https://github.com/openvinotoolkit/openvino/releases/tag/2026.3.1) |
 
 ## 环境部署
 
@@ -88,32 +82,6 @@ compiled_model = core.compile_model(ov_model, 'CPU')
 data = np.random.rand(1, 224, 224, 3)
 output = compiled_model({0: data})
 ```
-
-### 模型下载
-
-Open Model Zoo是一个开源项目，提供了丰富的预训练模型，用户可通过 `omz_downloader` 工具下载模型。
-
-1. 拉取 Open Model Zoo 代码仓：
-
-    ```bash
-    cd /workspace
-
-    git clone https://github.com/openvinotoolkit/open_model_zoo.git
-    ```
-
-2. 安装工具：
-
-    ```bash
-    cd open_model_zoo/tools/accuracy_checker/
-
-    python3 -m pip install -r requirements-core.in
-    ```
-
-3. 以下载 `ultra-lightweight-face-detection-rfb-320` 模型为例：
-
-    ```bash
-    omz_downloader --name ultra-lightweight-face-detection-rfb-320
-    ```
 
 ### 示例
 
