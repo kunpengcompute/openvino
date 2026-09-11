@@ -52,7 +52,7 @@ FaceNet 原始模型在 RGB 图像上训练，经 LFW 数据集实测，RGB 输�
 
 ### 前置条件
 
-已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，并按 [快速入门](../../README.md) 下载模型并准备 LFW 数据集。
+已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，以及安装 Open Model Zoo。
 
 下载 FaceNet 模型：
 ```bash
