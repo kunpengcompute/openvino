@@ -42,18 +42,30 @@ dnf install -y \
 
 建议固定OpenVINO版本为2026.2.1
 
+创建工作目录：
+
 ```bash
 mkdir -p /workspace
 cd /workspace
+```
 
+拉取 OpenVINO 代码仓：
+
+```bash
 git clone https://github.com/openvinotoolkit/openvino.git
+```
 
+切换到固定版本:
+
+```bash
 cd openvino
 
-# 切换到固定版本
 git checkout 2026.2.1
+```
 
-# 拉取全部子模块
+拉取全部子模块:
+
+```bash
 git submodule update --init --recursive
 ```
 
@@ -125,7 +137,7 @@ Available devices:
 
 ## Open Model Zoo 安装
 
-Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供了丰富的预训练模型及配套工具，涵盖计算机视觉、自然语言处理等多种典型应用场景。用户可以通过安装 Open Model Zoo 提供的 omz_downloader 工具，根据模型名称下载所需的预训练模型及其相关文件。
+OMZ（Open Model Zoo，开源模型资源库）是 OpenVINO 生态中的开源模型资源库，提供了丰富的预训练模型及配套工具，涵盖计算机视觉、自然语言处理等多种典型应用场景。用户可以通过安装 Open Model Zoo 提供的 omz_downloader 工具，根据模型名称下载所需的预训练模型及其相关文件。
 
 下载模型后，还可以结合 omz_converter 等工具将部分模型转换为 OpenVINO 支持的 IR 格式（.xml 和 .bin），从而用于后续的模型推理和性能测试。Open Model Zoo 可用于快速获取示例模型，便于验证 OpenVINO 的模型转换、推理和部署流程。
 
