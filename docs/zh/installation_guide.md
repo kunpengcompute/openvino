@@ -76,6 +76,7 @@ cmake --build . --parallel $(nproc)
 
 cmake --install .
 ```
+
 若使用Clang编译，需要修改以下参数：
 
 ```bash
@@ -122,7 +123,6 @@ Available devices:
 ['CPU']
 ```
 
-
 ## Open Model Zoo 安装
 
 Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供了丰富的预训练模型及配套工具，涵盖计算机视觉、自然语言处理等多种典型应用场景。用户可以通过安装 Open Model Zoo 提供的 omz_downloader 工具，根据模型名称下载所需的预训练模型及其相关文件。
@@ -140,7 +140,6 @@ Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供�
 
 2. 安装工具：
 
-
     进入 accuracy_checker 目录：
 
     ```bash
@@ -149,7 +148,7 @@ Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供�
 
     注释 requirements-extra.in 中的：
 
-    ```
+    ```bash
     # DNA sequence matching
     # parasail>=1.2.4;platform_system!="Windows"
     # parasail~=1.2.4;platform_system=="Windows"
@@ -157,13 +156,13 @@ Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供�
 
     安装依赖：
 
-    ```
+    ```bash
     python3 -m pip install -r requirements-core.in -r requirements-extra.in -r requirements-test.in
     ```
 
     安装工具：
 
-    ```
+    ```bash
     cd ../..
     python3 -m pip install -r tools/model_tools/requirements.in
     python3 -m pip install -e tools/model_tools
@@ -171,22 +170,20 @@ Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供�
 
     配置环境变量：
 
-    ```
+    ```bash
     export PATH="$(python3 -m site --user-base)/bin:$PATH"
     ```
 
     验证安装：
 
-    ```
+    ```bash
     which omz_downloader
     omz_downloader --help
     ```
 
-
-
     如需永久生效，可将环境变量配置写入 ~/.bashrc：
 
-    ```
+    ```bash
     echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
     ```
