@@ -48,7 +48,7 @@ ultra-lightweight-face-detection-rfb-320 是基于 RFB（Receptive Field Block�
 
 ### 前置条件
 
-已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，并按 [快速入门](../../README.md) 安装 `omz_downloader` 模型下载工具。
+已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，以及安装 Open Model Zoo。
 
 下载模型：
 ```bash

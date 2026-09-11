@@ -161,18 +161,32 @@ Open Model Zoo（OMZ）是 OpenVINO 生态中的开源模型资源库，提供�
     python3 -m pip install -r requirements-core.in -r requirements-extra.in -r requirements-test.in
     ```
 
-    安装工具命令：
+    安装工具：
 
-    ```bash
+    ```
     cd ../..
     python3 -m pip install -r tools/model_tools/requirements.in
-
     python3 -m pip install -e tools/model_tools
     ```
 
-    添加环境变量：
+    配置环境变量：
 
-    ```bash
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+    ```
+    export PATH="$(python3 -m site --user-base)/bin:$PATH"
+    ```
+
+    验证安装：
+
+    ```
+    which omz_downloader
+    omz_downloader --help
+    ```
+
+
+
+    如需永久生效，可将环境变量配置写入 ~/.bashrc：
+
+    ```
+    echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
     ```
