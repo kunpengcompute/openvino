@@ -71,6 +71,8 @@ git submodule update --init --recursive
 
 ### 3. 编译安装OpenVINO
 
+使用`GCC 12.3.1`编译，系统默认已安装GCC，编译命令如下：
+
 ```bash
 cd /workspace/openvino/
 
@@ -89,25 +91,59 @@ cmake --build . --parallel $(nproc)
 cmake --install .
 ```
 
-若使用Clang编译，需要修改以下参数：
+安装目录为`/opt/openvino-gcc`
+
+若使用`Clang 19.1.7`编译，需先安装Clang：
 
 ```bash
--DCMAKE_C_COMPILER=/usr/bin/clang \
--DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+# 使用 llvm-toolset-19 包名安装
+sudo dnf install -y llvm-toolset-19
+
+source /opt/openEuler/llvm-toolset-19/enable
+
+# 验证 clang 安装
+clang --version
 ```
 
-安装目录默认为：
+使用Clang编译，编译命令如下：
 
-```text
-/opt/openvino-gcc
+```bash
+cd /workspace/openvino/
+
+cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=$(which clang) \
+    -DCMAKE_CXX_COMPILER=$(which clang++) \
+    -DCMAKE_INSTALL_PREFIX=/opt/openvino-clang \
+    -DENABLE_PYTHON=ON \
+    -DENABLE_WHEEL=ON \
+    -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
+
+cd build
+
+cmake --build . --parallel $(nproc)
+
+cmake --install .
 ```
 
-### 4. 配置 Runtime 环境
+安装目录为`/opt/openvino-clang`
+
+### 4. 配置 Runtime 环境（二选一）
+
+gcc 编译：
 
 ```bash
 export OPENVINO_INSTALL_DIR=/opt/openvino-gcc
 
 source /opt/openvino-gcc/setupvars.sh
+```
+
+clang 编译：
+
+```bash
+export OPENVINO_INSTALL_DIR=/opt/openvino-clang
+
+source /opt/openvino-clang/setupvars.sh
 ```
 
 ### 5. 验证安装
