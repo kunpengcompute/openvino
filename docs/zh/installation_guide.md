@@ -1,6 +1,6 @@
 # 安装指南
 
-本文档介绍如何在鲲鹏 950 服务器上，基于 openEuler 24.03 LTS SP4 环境编译并安装 OpenVINO。
+本文档介绍如何在鲲鹏950服务器上，基于openEuler 24.03 LTS SP4环境编译并安装OpenVINO。
 
 ## 环境要求
 
@@ -23,8 +23,8 @@
 | ---- | ---- |
 | 架构 | aarch64 |
 | 编译器 | GCC 12.3.1 / Clang 19.1.7|
-| Python | 3.10 或以上版本|
-| 构建工具 | CMake 3.26 或以上版本|
+| Python | 3.10或以上版本|
+| 构建工具 | CMake 3.26或以上版本|
 
 ## 安装步骤
 
@@ -38,7 +38,7 @@ dnf install -y \
     libstdc++-devel glibc-devel openssl-devel
 ```
 
-### 2. 获取 OpenVINO 源码
+### 2. 获取OpenVINO源码
 
 建议固定OpenVINO版本为2026.2.1
 
@@ -49,7 +49,7 @@ mkdir -p /workspace
 cd /workspace
 ```
 
-拉取 OpenVINO 代码仓：
+拉取OpenVINO代码仓：
 
 ```bash
 git clone https://github.com/openvinotoolkit/openvino.git
@@ -71,6 +71,8 @@ git submodule update --init --recursive
 
 ### 3. 编译安装OpenVINO
 
+使用`GCC 12.3.1`编译，系统默认已安装GCC，编译命令如下：
+
 ```bash
 cd /workspace/openvino/
 
@@ -89,20 +91,46 @@ cmake --build . --parallel $(nproc)
 cmake --install .
 ```
 
-若使用Clang编译，需要修改以下参数：
+安装目录为`/opt/openvino-gcc`
+
+若使用`Clang 19.1.7`编译，需先安装Clang：
 
 ```bash
--DCMAKE_C_COMPILER=/usr/bin/clang \
--DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+# 使用llvm-toolset-19包名安装
+sudo dnf install -y llvm-toolset-19
+
+source /opt/openEuler/llvm-toolset-19/enable
+
+# 验证clang安装
+clang --version
 ```
 
-安装目录默认为：
+使用Clang编译，编译命令如下：
 
-```text
-/opt/openvino-gcc
+```bash
+cd /workspace/openvino/
+
+cmake -S . -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_COMPILER=$(which clang) \
+    -DCMAKE_CXX_COMPILER=$(which clang++) \
+    -DCMAKE_INSTALL_PREFIX=/opt/openvino-clang \
+    -DENABLE_PYTHON=ON \
+    -DENABLE_WHEEL=ON \
+    -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
+
+cd build
+
+cmake --build . --parallel $(nproc)
+
+cmake --install .
 ```
 
-### 4. 配置 Runtime 环境
+安装目录为`/opt/openvino-clang`
+
+### 4. 配置Runtime环境（二选一）
+
+gcc编译：
 
 ```bash
 export OPENVINO_INSTALL_DIR=/opt/openvino-gcc
@@ -110,9 +138,17 @@ export OPENVINO_INSTALL_DIR=/opt/openvino-gcc
 source /opt/openvino-gcc/setupvars.sh
 ```
 
+clang编译：
+
+```bash
+export OPENVINO_INSTALL_DIR=/opt/openvino-clang
+
+source /opt/openvino-clang/setupvars.sh
+```
+
 ### 5. 验证安装
 
-运行以下脚本验证 OpenVINO Runtime：
+运行以下脚本验证OpenVINO Runtime：
 
 ```bash
 python3 - <<'PY'
@@ -128,20 +164,22 @@ print(core.available_devices)
 PY
 ```
 
-成功输出如下信息，表示 OpenVINO 安装成功：
+成功输出如下信息，表示OpenVINO安装成功：
 
 ```text
 Available devices:
 ['CPU']
 ```
 
-## Open Model Zoo 安装
+## Open Model Zoo安装
 
-OMZ（Open Model Zoo，开源模型资源库）是 OpenVINO 生态中的开源模型资源库，提供了丰富的预训练模型及配套工具，涵盖计算机视觉、自然语言处理等多种典型应用场景。用户可以通过安装 Open Model Zoo 提供的 omz_downloader 工具，根据模型名称下载所需的预训练模型及其相关文件。
+OMZ（Open Model Zoo）是OpenVINO生态中的开源模型资源库，提供了丰富的预训练模型及配套工具，
+涵盖计算机视觉、自然语言处理等多种典型应用场景。用户可使用其提供的omz_downloader工具，根据模型名称下载所需的预训练模型及其相关文件。
 
-下载模型后，还可以结合 omz_converter 等工具将部分模型转换为 OpenVINO 支持的 IR 格式（.xml 和 .bin），从而用于后续的模型推理和性能测试。Open Model Zoo 可用于快速获取示例模型，便于验证 OpenVINO 的模型转换、推理和部署流程。
+下载模型后，可结合omz_converter等工具将部分模型转换为OpenVINO支持的IR格式（.xml和.bin），
+用于后续的模型推理和性能测试。用户可借助Open Model Zoo快速获取示例模型，便于验证OpenVINO的模型转换、推理和部署流程。
 
-1. 拉取 Open Model Zoo 代码仓：
+1. 拉取Open Model Zoo代码仓：
 
     ```bash
     mkdir -p /workspace
@@ -152,13 +190,13 @@ OMZ（Open Model Zoo，开源模型资源库）是 OpenVINO 生态中的开源�
 
 2. 安装工具：
 
-    进入 accuracy_checker 目录：
+    进入accuracy_checker目录：
 
     ```bash
     cd open_model_zoo/tools/accuracy_checker/
     ```
 
-    注释 requirements-extra.in 中的：
+    注释requirements-extra.in中的：
 
     ```bash
     # DNA sequence matching
@@ -193,9 +231,10 @@ OMZ（Open Model Zoo，开源模型资源库）是 OpenVINO 生态中的开源�
     omz_downloader --help
     ```
 
-    如需永久生效，可将环境变量配置写入 ~/.bashrc：
-
-    ```bash
-    echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
-    ```
+    > ![](public_sys-resources/icon-note.gif) **说明**：
+    > 如需环境变量永久生效，可将环境变量配置写入~/.bashrc：
+    >
+    > ```bash
+    > echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
+    > source ~/.bashrc
+    > ```

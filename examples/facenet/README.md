@@ -2,9 +2,9 @@
 
 ## 概述
 
-facenet-20180408-102900 是基于 FaceNet（A Unified Embedding for Face Recognition and Clustering，人脸识别与聚类的统一嵌入）的人脸识别模型，源自 David Sandberg 的 [facenet](https://github.com/davidsandberg/facenet) 开源实现。模型输入对齐后的 160×160 人脸裁剪图，输出 512 维人脸特征向量（embedding），通过比较两张人脸 embedding 的余弦相似度判断是否为同一人。模型在 LFW 数据集上准确率达 99.14%。
+facenet-20180408-102900是基于FaceNet（A Unified Embedding for Face Recognition and Clustering，人脸识别与聚类的统一嵌入）的人脸识别模型，源自David Sandberg的[facenet](https://github.com/davidsandberg/facenet)开源实现。模型输入对齐后的160×160人脸裁剪图，输出512维人脸特征向量（embedding），通过比较两张人脸embedding的余弦相似度判断是否为同一人。模型在LFW数据集上准确率达99.14%。
 
-原始模型为 TensorFlow 导出的 PB 文件。本仓库提供的测试用例完成 PB 文件到 OpenVINO IR 文件的完整转换，并基于 LFW 数据集进行推理，实现了同人或不同人脸的比对验证。
+原始模型为TensorFlow导出的PB文件。本仓库提供的测试用例完成PB文件到OpenVINO IR文件的完整转换，并基于LFW数据集进行推理，实现了同人或不同人脸的比对验证。
 
 ## 模型规格
 
@@ -26,14 +26,14 @@ facenet-20180408-102900 是基于 FaceNet（A Unified Embedding for Face Recogni
 | Shape | `1, 160, 160, 3` |
 | 数据布局 | `B, H, W, C`（NHWC） |
 | 数据类型 | `float32` |
-| 取值范围 | 约 `[-1.0, 1.0]`（归一化后） |
+| 取值范围 | 约`[-1.0, 1.0]`（归一化后） |
 | 颜色顺序 | `RGB` |
 
-输入应为经过人脸检测（如 `ultra-lightweight-face-detection-rfb-320`）并裁剪出的人脸区域，而非整张原始图片。裁剪出的人脸框需 resize 到 160×160 后送入模型。
+输入应为经过人脸检测（如`ultra-lightweight-face-detection-rfb-320`）并裁剪出的人脸区域，而非整张原始图片。裁剪出的人脸框需resize到160×160后送入模型。
 
-FaceNet 原始模型在 RGB 图像上训练，经 LFW 数据集实测，RGB 输入下同人 / 不同人的余弦相似度分离度优于 BGR。由于 `cv2.imread()` 读取的图像为 BGR 顺序，本示例预处理时通过 `cv2.cvtColor()` 转换为 RGB。
+FaceNet原始模型在RGB图像上训练，经LFW数据集实测，RGB输入下同人 / 不同人的余弦相似度分离度优于BGR。由于`cv2.imread()`读取的图像为BGR顺序，本示例预处理时通过`cv2.cvtColor()`转换为RGB。
 
-原始 TensorFlow 模型还包含 `batch_size`、`phase_train`、`batch_join:1:0` 等辅助输入，转换时已分别冻结为 `1`、`False`、`[0]`，部署模型仅保留上述单一图像输入。
+原始TensorFlow模型还包含`batch_size`、`phase_train`、`batch_join:1:0`等辅助输入，转换时已分别冻结为`1`、`False`、`[0]`，部署模型仅保留上述单一图像输入。
 
 ## 模型输出
 
@@ -44,21 +44,21 @@ FaceNet 原始模型在 RGB 图像上训练，经 LFW 数据集实测，RGB 输�
 | 输出名称 | `embeddings` |
 | Shape | `1, 512` |
 | 数据类型 | `float32` |
-| 输出含义 | 一张人脸的 512 维特征向量 |
+| 输出含义 | 一张人脸的512维特征向量 |
 
-该 512 维向量由 FaceNet 的 Inception-ResNet-v1 backbone 提取，是人脸在特征空间中的表示。同一人不同照片的 embedding 距离较近，不同人的 embedding 距离较远。输出本身不包含任何身份标签，需通过与底库向量比对完成识别。
+该512维向量由FaceNet的Inception-ResNet-v1 backbone提取，是人脸在特征空间中的表示。同一人不同照片的embedding距离较近，不同人的embedding距离较远。输出本身不包含任何身份标签，需通过与底库向量比对完成识别。
 
 ## 运行示例
 
 ### 前置条件
 
-已按 [安装指南](../../docs/zh/installation_guide.md) 完成 OpenVINO 环境部署，以及安装 Open Model Zoo。
+已按[安装指南](../../docs/zh/installation_guide.md)完成OpenVINO环境部署，以及安装Open Model Zoo。
 
-下载 FaceNet 模型：
+下载FaceNet模型：
 ```bash
 omz_downloader --name facenet-20180408-102900
 ```
-下载 LFW 数据集：
+下载LFW数据集：
 ```
 mkdir -p /examples/facenet/dataset
 cd /examples/facenet/dataset
@@ -84,20 +84,20 @@ python3 facenet_inference.py \
 
 | 参数            | 默认值                                  | 说明                       |
 |-----------------|----------------------------------------|----------------------------|
-| `--pb`          | `/workspace/open_model_zoo/public/facenet-20180408-102900/20180408-102900/20180408-102900.pb` | TensorFlow PB 模型路径      |
-| `--ir`          | `examples/facenet/facenet-20180408-102900.xml` | 输出的 OpenVINO IR xml 路径 |
-| `--lfw`         | `examples/facenet/dataset/lfw`         | LFW 数据集根目录            |
+| `--pb`          | `/workspace/open_model_zoo/public/facenet-20180408-102900/20180408-102900/20180408-102900.pb` | TensorFlow PB模型路径      |
+| `--ir`          | `examples/facenet/facenet-20180408-102900.xml` | 输出的OpenVINO IR xml路径 |
+| `--lfw`         | `examples/facenet/dataset/lfw`         | LFW数据集根目录            |
 | `--device`      | `CPU`                                  | 推理设备                    |
-| `--num-people`  | `5`                                    | 从 LFW 选取的人数           |
+| `--num-people`  | `5`                                    | 从LFW选取的人数           |
 | `--num-images`  | `2`                                    | 每人取几张图做同人比对       |
 | `--threshold`   | `0.42`                                 | 余弦相似度阈值               |
-| `--skip-convert`| -                 | 跳过转换，直接加载已有 IR    |
+| `--skip-convert`| -                 | 跳过转换，直接加载已有IR    |
 
 
 ### 示例结果
 
 
-LFW 数据集比对验证输出结果：
+LFW数据集比对验证输出结果：
 
 ```text
 [4/4] LFW validation results:
@@ -112,9 +112,9 @@ LFW 数据集比对验证输出结果：
   Accuracy             : 15/15 = 100.00%
 ```
 
-### benchmark_app 性能测试
+### benchmark_app性能测试
 
-`benchmark_app` 是 OpenVINO 自带的性能基准测试工具，用于测量模型在指定设备上的推理性能。它通过多次执行推理并统计延迟、吞吐量等指标，帮助评估模型部署后的实际运行效率。
+`benchmark_app`是OpenVINO自带的性能基准测试工具，用于测量模型在指定设备上的推理性能。它通过多次执行推理并统计延迟、吞吐量等指标，帮助评估模型部署后的实际运行效率。
 
 测试运行命令如下：
 ```bash
@@ -127,4 +127,4 @@ LFW 数据集比对验证输出结果：
 
 ## 合规信息
 
-原始模型来自 [davidsandberg/facenet](https://github.com/davidsandberg/facenet)，遵循 MIT License。
+原始模型来自[davidsandberg/facenet](https://github.com/davidsandberg/facenet)，遵循MIT License。

@@ -1,4 +1,4 @@
-# OpenVINO 介绍
+# OpenVINO介绍
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![Architecture](https://img.shields.io/badge/arch-aarch64-red.svg)
@@ -6,9 +6,9 @@
 
 ## 简介
 
-鲲鹏OpenVINO代码仓是针对开源 OpenVINO 项目在鲲鹏服务器上的适配与使能。
+鲲鹏OpenVINO代码仓是针对开源OpenVINO项目在鲲鹏服务器上的适配与使能。
 
-OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 AI 模型，被广泛应用于目标检测、人脸识别等媒体相关推理场景。
+OpenVINO是开源的深度学习推理优化框架，利用硬件特性加速AI模型，被广泛应用于目标检测、人脸识别等媒体相关推理场景。
 
 ## 目录结构
 
@@ -19,8 +19,8 @@ OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 A
 │       ├── quick_start.md                           # 快速入门
 │       └── LICENSE                                  # 文档许可证
 ├── examples
-│   ├── facenet                                      # 人脸识别 FaceNet 示例   
-│   │   ├── dataset                                  # LFW 数据集
+│   ├── facenet                                      # 人脸识别FaceNet示例   
+│   │   ├── dataset                                  # LFW数据集
 │   │   ├── facenet_inference.py                     # 模型转换与推理
 │   └── ultra-lightweight-face-detection-rfb-320     # 人脸检测示例
 │       ├── test_face_detection_FRB320.py            # 模型转换与推理
@@ -35,9 +35,9 @@ OpenVINO 是开源的深度学习推理优化框架，利用硬件特性加速 A
 
 ## 快速入门
 
-### PyTorch 模型
+### PyTorch模型
 
-使用 OpenVINO 将 PyTorch 模型转换并编译到 CPU，以及执行模型推理验证：
+使用OpenVINO将PyTorch模型转换并编译到CPU，以及执行模型推理验证：
 
 ```python
 import openvino as ov
@@ -59,9 +59,9 @@ compiled_model = core.compile_model(ov_model, 'CPU')
 output = compiled_model({0: example.numpy()})
 ```
 
-### TensorFlow 模型
+### TensorFlow模型
 
-使用 OpenVINO 将 TensorFlow 模型转换并编译到 CPU，以及执行模型推理验证：
+使用OpenVINO将TensorFlow模型转换并编译到CPU，以及执行模型推理验证：
 
 ```python
 import numpy as np
@@ -85,13 +85,13 @@ output = compiled_model({0: data})
 
 ### 示例
 
-本项目提供人脸检测和人脸识别两个 OpenVINO 推理示例，帮助用户快速验证鲲鹏服务器上的 OpenVINO 环境及模型推理能力。
+本项目提供人脸检测和人脸识别两个OpenVINO推理示例，帮助用户快速验证鲲鹏服务器上的OpenVINO环境及模型推理能力。
 
-* [人脸检测](examples/ultra-lightweight-face-detection-rfb-320/)：使用 `ultra-lightweight-face-detection-rfb-320` 模型进行人脸检测。
+* [人脸检测](examples/ultra-lightweight-face-detection-rfb-320/)：使用`ultra-lightweight-face-detection-rfb-320`模型进行人脸检测。
 
-* [FaceNet 人脸识别](examples/facenet/)：使用 `facenet-20180408-102900` 模型提取人脸特征并进行人脸比对。
+* [FaceNet人脸识别](examples/facenet/)：使用`facenet-20180408-102900`模型提取人脸特征并进行人脸比对。
 
-详细的模型准备及运行方法请参考 [examples/facenet](examples/facenet/README.md) 以及 [examples/ultra-lightweight-face-detection-rfb-320](examples/ultra-lightweight-face-detection-rfb-320/README.md)。
+详细的模型准备及运行方法请参考[examples/facenet](examples/facenet/README.md)以及[examples/ultra-lightweight-face-detection-rfb-320](examples/ultra-lightweight-face-detection-rfb-320/README.md)。
 
 ## 许可证
 
