@@ -232,9 +232,8 @@ OMZ（Open Model Zoo）是OpenVINO生态中的开源模型资源库，提供了�
     ```
 
     > ![](public_sys-resources/icon-note.gif) **说明**：
-    - 如需环境变量永久生效，可将环境变量配置写入~/.bashrc：
-
-        ```bash
-        echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
-        source ~/.bashrc
-        ```
+    > 如需环境变量永久生效，可将环境变量配置写入~/.bashrc：
+    > ```bash
+    > echo 'export PATH="$(python3 -m site --user-base)/bin:$PATH"' >> ~/.bashrc
+    > source ~/.bashrc
+    > ```
